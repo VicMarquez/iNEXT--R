@@ -1,4 +1,4 @@
-## An·lisis de Diversidad con iNext
+## An√°lisis de Diversidad con iNext
 
 #Biblio de referencia: https://cran.r-project.org/web/packages/iNEXT/vignettes/Introduction.html
 
@@ -17,7 +17,7 @@ str(spider)
 iNEXT(spider, q=0, datatype="abundance")
 
 
-#Archivo con datos de Incidencia de las spp por CondiciÛn: "Sp x CondiciÛn.txt"
+#Archivo con datos de Incidencia de las spp por Condici√≥n: "Sp x Condici√≥n.txt"
 
 data<- read.table(file.choose(), header = TRUE)
 head(data)
@@ -35,7 +35,7 @@ iNEXT(data, q=0, datatype="incidence_freq")
 #1     Campesino 6 193    60 0.9359 15  8 13  8  5 11  0  0  0   0
 #2 Silvopastoril 6 183    68 0.9017 23 16  9  7  5  8  0  0  0   0
 
-#Referencias: TamaÒo muestral (T), riqueza observada (S.obs), la estimaciÛn de cobertura o completitud del muestreo (SC)
+#Referencias: Tama√±o muestral (T), riqueza observada (S.obs), la estimaci√≥n de cobertura o completitud del muestreo (SC)
 
 #
 #$iNextEst: diversity estimates with rarefied and extrapolated samples.
@@ -87,7 +87,7 @@ iNEXT(data, q=0, datatype="incidence_freq")
 #5 Silvopastoril Shannon diversity   55.938    66.306 3.280 59.878  72.734
 #6 Silvopastoril Simpson diversity   48.325    54.588 2.707 49.283  59.894
 
-#Grafico las mÈtrias de riqueza y diversidad para cada condiciÛn
+#Grafico las m√©trias de riqueza y diversidad para cada condici√≥n
 
 plot<-iNEXT(data, q=c(0, 1, 2), datatype="incidence_freq")
 
@@ -95,10 +95,10 @@ plot<-iNEXT(data, q=c(0, 1, 2), datatype="incidence_freq")
 ggiNEXT(plot, type=1, facet.var="site")
 
 # Sample-size-based R/E curves, separating by order, o sea por indice"
-ggiNEXT(plot, type=1, facet.var="order", color.var="site") #La superposiciÛn de intervalos de confianza nos dice que no hay diferencias significativas entre la riqeuza o diversidad de las condiciones
+ggiNEXT(plot, type=1, facet.var="order", color.var="site") #La superposici√≥n de intervalos de confianza nos dice que no hay diferencias significativas entre la riqeuza o diversidad de las condiciones
 
 #Curva de completitud
-ggiNEXT(plot, type=2, facet.var="none", color.var="site") #este gr·fico nos dice que el N usado fue bueno
+ggiNEXT(plot, type=2, facet.var="none", color.var="site") #este gr√°fico nos dice que el N usado fue bueno
 
 
 ggiNEXT(plot, type=3, facet.var="order", color.var="site")
@@ -140,11 +140,11 @@ ggplot(riq, aes(y = RiqObsq.1, x = Cond, fill = SITIO)) +
                fun.ymax = function(x) mean(x) + sd(x),  position ='dodge', 
                geom = 'errorbar', aes(group = SITIO))
 
-boxplot(RiqObsq.0 ~ Cond, data = riq, lwd = 2, ylab = 'Riqueza observada (q=0)', xlab="CondiciÛn")
+boxplot(RiqObsq.0 ~ Cond, data = riq, lwd = 2, ylab = 'Riqueza observada (q=0)', xlab="Condici√≥n")
 stripchart(RiqObsq.0 ~ Cond, vertical = TRUE, data = riq, 
            method = "jitter", add = TRUE, pch = 20, col = c("chartreuse4", "orange2", "red"))
 
-boxplot(RiqObsq.1 ~ Cond, data = riq, lwd = 2, ylab = 'Riqueza observada (q=1)', xlab="CondiciÛn")
+boxplot(RiqObsq.1 ~ Cond, data = riq, lwd = 2, ylab = 'Riqueza observada (q=1)', xlab="Condici√≥n")
 stripchart(RiqObsq.1 ~ Cond, vertical = TRUE, data = riq, 
            method = "jitter", add = TRUE, pch = 20, col = c("chartreuse4", "orange2", "red"))
 
@@ -161,7 +161,7 @@ ggplot(riq, aes(y = RiqObsq.1, x = Cond)) +
                fun.ymax = function(x) mean(x) + sd(x),  position ='dodge', 
                geom = 'errorbar')
 
-##Pruebo un modelo mixto para Conteos con sitios anidado en CondiciÛn
+##Pruebo un modelo mixto para Conteos con sitios anidado en Condici√≥n
 library(lme4)
 mod<-glm(RiqObsq.0 ~ Cond, family = poisson, data=riq)
 summary(mod)
@@ -172,14 +172,14 @@ plot(mod) #ajuste del modelo
 #(Intercept)  3.47093    0.07198  48.220   <2e-16 ***
 # CondSilvo   -0.05868    0.10332  -0.568     0.57     #hay una tendencia de menor riqueza en silvo, pero no es significativa
 
-#Estimamos sobredispersiÛn:
+#Estimamos sobredispersi√≥n:
 logLik(mod) #extraigo los grados de libertad del modelo
 Discrep.Pear1<-sum(resid(mod,type="pearson")^2)
-dp3<-Discrep.Pear1/(12-2) #n∫ de casos menos los grados de libertad.
-dp3 # 0.677669 no hay sobredispersiÛn
+dp3<-Discrep.Pear1/(12-2) #n¬∫ de casos menos los grados de libertad.
+dp3 # 0.677669 no hay sobredispersi√≥n
 
 
-#An·lisis para riqueza estimada a Q=1
+#An√°lisis para riqueza estimada a Q=1
 mod1<-lm(RiqObsq.1 ~ Cond, data=riq)
 summary(mod1)
 plot(mod1) #el ajuste es mas o menos bueno
